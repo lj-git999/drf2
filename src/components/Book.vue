@@ -60,11 +60,8 @@ export default {
     handleDelete(index,row){
       console.log(index,row);
       this.$axios({
-        url:"http://127.0.0.1:8000/adminapp/show/",
+        url:"http://127.0.0.1:8000/userapp/show/"+row+"/",
         method:"delete",
-        data:{
-          user_id:row
-        },
       }).then(rst=>{
         console.log(rst.data)
         alert(rst.data.message)
@@ -82,11 +79,11 @@ export default {
   },
   created() {
     this.$axios({
-      url:"http://127.0.0.1:8000/adminapp/show/",
+      url:"http://127.0.0.1:8000/userapp/show/",
       method:"get",
     }).then(rst=>{
-      console.log(rst.data.result[0]);
-      this.book_list=rst.data.result;
+      console.log(rst.data);
+      this.book_list=rst.data;
     }).catch(error=>{
       console.log(error);
     })

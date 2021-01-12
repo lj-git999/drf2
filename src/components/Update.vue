@@ -13,14 +13,14 @@
           <el-form-item label="价格" prop="price">
             <el-input v-model.number="book.price"></el-input>
           </el-form-item>
-          <el-form-item label="作者" prop="author_list">
-            <el-input v-model.number="book.author_list[0].id"></el-input>
+          <el-form-item label="作者" prop="authors">
+            <el-input v-model.array="book.authors"></el-input>
           </el-form-item>
           <el-form-item label="出版社" prop="publish">
-            <el-input v-model.number="book.publish.id"></el-input>
+            <el-input v-model="book.publish"></el-input>
           </el-form-item>
           <el-form-item label="日期" prop="create_time">
-            <el-date-picker type="date" placeholder="选择日期" v-model="book.create_time" style="width: 100%;" value-format="yyyy-MM-dd HH:mm:dd"></el-date-picker>
+            <el-date-picker type="date" placeholder="选择日期" v-model="book.create_time" style="width: 100%;" value-format="yyyy-MM-dd "></el-date-picker>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm('book')">提交</el-button>
@@ -33,7 +33,6 @@
 
     </el-row>
   </div>
-
 </template>
 
 <script>
@@ -95,22 +94,21 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           alert('submit!');
-          let user_all=this.book.author_list[0].id;
-          console.log(JSON.parse(user_all))
-          console.log(Array(this.book.publish.id))
+          let user_all=this.book.authors;
+          console.log(user_all)
+          console.log(this.book.publish)
           console.log(this.book.price)
           let user_id=this.$route.params.id;
           this.$axios({
-            url:"http://127.0.0.1:8000/adminapp/update/",
+            url:"http://127.0.0.1:8000/userapp/update/",
             method:'patch',
             data:{
-              user_id:user_id,
               book_name:this.book.book_name,
               price:JSON.parse(this.book.price),
-              authors:[JSON.parse(this.book.author_list[0].id)],
+              authors:this.book.authors,
               address:this.book.pulish_address,
               create_time:this.book.create_time,
-              publish:JSON.parse(this.book.publish.id),
+              publish:JSON.parse(this.book.publish),
             }
           }).then(rst=>{
             console.log(rst.data);
@@ -128,15 +126,13 @@ export default {
     },
     update(){
       let user_id=this.$route.params.id;
+      console.log(user_id)
       this.$axios({
-        url:"http://127.0.0.1:8000/adminapp/update/",
+        url:"http://127.0.0.1:8000/userapp/update/"+user_id+"/",
         method:'get',
-        params:{
-          user_id:user_id
-        }
       }).then(rst=>{
-        console.log(rst.data.result);
-        this.book=rst.data.result;
+        console.log(rst.data);
+        this.book=rst.data;
       }).catch(error=>{
         console.log(error);
       })
@@ -152,3 +148,4 @@ export default {
 <style scoped>
 
 </style>
+g

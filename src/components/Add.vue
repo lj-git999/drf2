@@ -16,9 +16,6 @@
           <el-form-item label="作者" prop="authors">
             <el-input v-model.number="book.authors"></el-input>
           </el-form-item>
-          <el-form-item label="图片" prop="pic">
-            <el-input v-model.number="book.pic"></el-input>
-          </el-form-item>
           <el-form-item label="出版社" prop="publish">
             <el-input v-model.number="book.publish"></el-input>
           </el-form-item>
@@ -101,7 +98,7 @@ export default {
           let book_all=this.book.authors;
           console.log(book_all)
           this.$axios({
-            url:"http://127.0.0.1:8000/adminapp/add/",
+            url:"http://127.0.0.1:8000/userapp/add/",
             method:"post",
             data:{
               book_name:this.book.book_name,
@@ -112,11 +109,12 @@ export default {
               publish:JSON.parse(this.book.publish),
             }
           }).then(rst=>{
-            console.log(rst.data);
+            console.log(rst.data.message);
             alert(rst.data.message)
+            this.$router.push('/book')
           }).catch(error=>{
             console.log(error);
-            alert(error.data.message)
+
           })
         } else {
           console.log('error submit!!');

@@ -5,6 +5,7 @@
     <router-link to="/show">查看图书</router-link>
     <router-link to="/add"></router-link>
     <router-link to="/update"></router-link>
+    <router-link to="/login">登录</router-link>
 
     <router-view></router-view>
   </div>
@@ -15,6 +16,7 @@ import Book from "./components/Book";
 import Add from "./components/Add";
 import Show from "./components/Show";
 import Update from "./components/Update";
+import Login from "./components/Login";
 
 export default {
   name: 'App',
@@ -22,7 +24,8 @@ export default {
     book:Book,
     add:Add,
     show:Show,
-    update:Update
+    update:Update,
+    login:Login
   }
 
 }

@@ -6,7 +6,6 @@
         <el-table-column  prop="id" label="id" width="120"></el-table-column>
         <el-table-column prop="book_name" label="书名" width="120"></el-table-column>
         <el-table-column prop="price" label="价格" width="120"></el-table-column>
-        <el-table-column prop="pic" label="图片" width="120"></el-table-column>
         <el-table-column label="作者" width="180">
           <template slot-scope="scope">
             <el-popover trigger="hover" placement="top" v-for="(author,index) in scope.row.author_list" :key="index">
@@ -42,14 +41,11 @@ export default {
       let user_id=this.$route.params.id;
       console.log(user_id)
       this.$axios({
-        url:"http://127.0.0.1:8000/adminapp/show/",
+        url:"http://127.0.0.1:8000/userapp/show/"+user_id+"/",
         method:'get',
-        params:{
-          user_id:user_id
-        }
       }).then(rst=>{
-        console.log([rst.data.result]);
-        this.book_list=[rst.data.result]
+        console.log(rst.data);
+        this.book_list=[rst.data]
       }).catch(error=>{
         console.log(error)
       })
